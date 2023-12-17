@@ -44,3 +44,6 @@ This is exercise covers all the lessons learnt during the past weeks
     - semi-automatic spam management
      - upload images for posts + WYSIWYG editor
     - create link automatically in posts by text analysis
+
+    https://github.com/nine1000school/asi-3-24-b_api
+    DB__CONNECTION=postgres://postgres:root@localhost:5432/blog
