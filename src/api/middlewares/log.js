@@ -1,4 +1,4 @@
-const log = async (req, res, next) => {
+const log = async ({req, res, next}) => {
     
     await next()
 }
