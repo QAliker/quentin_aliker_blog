@@ -3,18 +3,21 @@ import mw from "@/api/mw"
 const handle = mw({
   POST: [
     async ({
-      db,
+      models: { PostsModel },
       req: {
-        body: { title, content}
+        body: { title, content },
       },
-      res
+      res,
     }) => {
-      const posts = await db("posts")
+      const posts = await PostsModel.query()
       .insert({ title, content, created_at: "NOW()", updated_at: "NOW()"  })
-      res.send("the posts has been inserted in the database")
+      res.send("the posts has been inserted in the database", posts)
     },
   ],
-  GET: [async ({ res, db }) => res.send(await db("posts"))],
+  GET: [async ({ res, models:{PostsModel} }) => {
+    const posts = await PostsModel.query()
+    res.send(posts)
+  }],
 })
 
 export default handle

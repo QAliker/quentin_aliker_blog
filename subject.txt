@@ -7,6 +7,11 @@ This is exercise covers all the lessons learnt during the past weeks
 ## Epics & Stories
 
 ### Basic blogging
+    - CRUD posts
+        - user:
+            - read a post
+            - list posts
+            - author: 
     - CRUD users + session
         - user/author:
             - sign up
@@ -17,11 +22,6 @@ This is exercise covers all the lessons learnt during the past weeks
             - delete users
             - edit users
             - disable users
-    - CRUD posts
-        - user:
-            - read a post
-            - list posts
-        - author: 
             - create a post
             - edit a post
     - CRUD comments
@@ -46,4 +46,3 @@ This is exercise covers all the lessons learnt during the past weeks
     - create link automatically in posts by text analysis
 
     https://github.com/nine1000school/asi-3-24-b_api
-    DB__CONNECTION=postgres://postgres:root@localhost:5432/blog
