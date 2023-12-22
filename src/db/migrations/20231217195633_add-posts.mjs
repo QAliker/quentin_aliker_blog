@@ -1,6 +1,6 @@
 export const up = async (db) => {
     await db.schema.createTable("posts", (table) => {
-        table.increments("postId");
+        table.increments("id");
         // table.integer("userId");
         table.string("title");
         table.text("content");
