@@ -1,7 +1,7 @@
 import { titleValidators, contentValidators } from "@/utils/validators";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup"
-import Nav from "../../web/components/nav"
+import Nav from "../../web/components/Nav"
 import axios from "axios";
 
 const initialValues = {
@@ -19,10 +19,10 @@ const createPosts = () => {
         const { data } = await axios.post("http://localhost:3000/api/posts", values)
         console.log(values, data)
 
-        resetForm
+        resetForm()
     }
     return (
-        <><Nav />
+        
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -52,8 +52,7 @@ const createPosts = () => {
                 </button>
             </Form>
             {/* Component pour le Formik(formulaire voir commit showcase axios) */}
-            {/* Rajouter les extrai de text ? */}
-        </Formik></>
+        </Formik>
         )}
 
 export default createPosts
