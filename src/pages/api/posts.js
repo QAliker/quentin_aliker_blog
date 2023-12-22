@@ -1,7 +1,15 @@
 import mw from "@/api/mw"
+import { validate } from "@/api/middlewares/validate"
+import { contentValidators, titleValidators  } from "@/utils/validators"
 
 const handle = mw({
   POST: [
+    validate({
+      body: {
+        title: titleValidators,
+        content: contentValidators
+      },
+    }),
     async ({
       models: { PostsModel },
       req: {

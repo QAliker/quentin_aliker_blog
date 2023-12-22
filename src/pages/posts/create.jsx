@@ -1,6 +1,8 @@
 import { titleValidators, contentValidators } from "@/utils/validators";
-import { ErrorMessage, Field, Form, Formik, For } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup"
+import Nav from "../../web/components/nav"
+import axios from "axios";
 
 const initialValues = {
     title: "",
@@ -9,40 +11,49 @@ const initialValues = {
 
 const validationSchema = yup.object({
     title: titleValidators.label("title"),
-    content: titleValidators.label("content"),
+    content: contentValidators.label("content"),
 })
 
 const createPosts = () => {
-    const handleSubmit = (values) => {
-        console.log(values)
+    const handleSubmit = async (values, { resetForm }) => {
+        const { data } = await axios.post("http://localhost:3000/api/posts", values)
+        console.log(values, data)
+
+        resetForm
     }
     return (
-        <Formik 
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}>
+        <><Nav />
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}>
             <Form
-            className="flex items-center flex-col gap-4" noValidate>
+                className="flex items-center flex-col gap-4" noValidate>
+                <label htmlFor="title">Title</label>
                 <Field
-                name="title"
-                type="text"
-                className="border-2 p-2"
-                placeholder="Enter a title" />
+                    name="title"
+                    type="text"
+                    className="border-2 p-2"
+                    placeholder="Enter a title" />
                 <ErrorMessage name="title" component="p" className="text-red-500" />
+                <label htmlFor="content">Content</label>
                 <Field
-                name="content"
-                component="textarea"
-                rows="2"
-                className="border-2 px-[25rem]"
-                placeholder="Enter your content"/>
+                    name="content"
+                    component="textarea"
+                    cols="85"
+                    rows="10"
+                    className="border-2"
+                    placeholder="Enter your content" />
                 <ErrorMessage name="content" component="p" className="text-red-500" />
                 <button
-                type="submit"
-                className="px-3 py-2 bg-blue-600 active:bg-blue-700 text-2xl text-white">
+                    type="submit"
+                    className="px-3 py-2 bg-blue-600 active:bg-blue-700 text-2xl text-white">
                     Submit
-                    </button>
+                </button>
             </Form>
-        </Formik>
+            {/* Component pour le Formik(formulaire voir commit showcase axios) */}
+            {/* Rajouter les extrai de text ? */}
+        </Formik></>
         )}
 
 export default createPosts
