@@ -1,7 +1,7 @@
-
-import { useState, useEffect } from "react";
+import apiClient from "@/web/services/apiClient";
 import axios from "axios"
 import { useMutation, useQuery } from "@tanstack/react-query";
+import Loader from "@/web/components/Loader";
 const Home = () => {
   const {
     isLoading,
@@ -10,21 +10,23 @@ const Home = () => {
   } = useQuery({
     queryKey: ["posts"],
     queryFn: () => 
-    axios("http://localhost:3000/api/posts").then(({data}) => data),
+    apiClient("/posts").then(({data}) => data),
   })
   // mutation et requete pour le update a faire
 
   const { mutateAsync: deletePost } = useMutation({
-    mutationFn: (post) => axios.delete(`http://localhost:3000/api/posts/${post.id}`),
+    mutationFn: (post) => apiClient.delete(`/posts/${post.id}`),
   })
   const handleClickDelete = async (event) => {
-    const id = Number.parseInt(event.target.getAttribute("data-id"), 10)
-    await deletePost(posts.find((post) => post.id === id))
+    const postId = Number.parseInt(event.target.getAttribute("data-id"), 10)
+    await deletePost(postId)
     await refetch()
   }
 
   if (isLoading) {
-    return "Loading..."
+    return (
+      <Loader />
+    )
   }
 
   return (
@@ -32,6 +34,7 @@ const Home = () => {
     <div className="flex justify-around p-2">
     {posts.map(({ id, title, content, created_at}) => (
       <div className="max-w-sm rounded overflow-hidden shadow-lg  border-2 border-black">
+        {/* Ajouter une key au dessus */}
       {/* <img ClassName="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains" /> */}
       <div className="px-6 py-4">
       <div className="font-bold text-xl mb-2">{title}</div>
