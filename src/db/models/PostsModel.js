@@ -1,4 +1,4 @@
-import BaseModel from "./BaseModel"
+import BaseModel from "@/db/models/BaseModel"
 
 class PostsModel extends BaseModel {
     static tableName = "posts"

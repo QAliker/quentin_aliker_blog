@@ -13,7 +13,7 @@ async (ctx) => {
     })
     const sanitizedValues = validationSchema.validateSync(
         { body, query },
-        { stripUnknown: true },
+        { stripUnknown: true, abortEarly: false },
         )
         
         Object.assign(ctx, { input: sanitizedValues })
