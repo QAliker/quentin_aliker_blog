@@ -1,27 +1,34 @@
-import Nav from "../web/components/Nav";
+
 import { useState, useEffect } from "react";
 import axios from "axios"
+import { useMutation, useQuery } from "@tanstack/react-query";
 const Home = () => {
-  const [posts, setposts] = useState([])
-  
-  useEffect(() => {
-    ;(async () => {
-      const { data } = await axios.get("http://localhost:3000/api/posts")
-      setposts(data)
-      console.log(posts) 
-    })()
-  }, [])
-  const handleClickUpdate = (id) => async () => {
-    // gerer le update en envoyant vers le create
-  }
+  const {
+    isLoading,
+    data: posts,
+    refetch,
+  } = useQuery({
+    queryKey: ["posts"],
+    queryFn: () => 
+    axios("http://localhost:3000/api/posts").then(({data}) => data),
+  })
+  // mutation et requete pour le update a faire
+
+  const { mutateAsync: deletePost } = useMutation({
+    mutationFn: (post) => axios.delete(`http://localhost:3000/api/posts/${post.id}`),
+  })
   const handleClickDelete = async (event) => {
     const id = Number.parseInt(event.target.getAttribute("data-id"), 10)
-    await axios.delete(`http://localhost:3000/api/posts/${id}`)
-    setPosts(todos.filter((posts) => posts.id !== id))
+    await deletePost(posts.find((post) => post.id === id))
+    await refetch()
+  }
+
+  if (isLoading) {
+    return "Loading..."
   }
 
   return (
-    <><Nav />
+    
     <div className="flex justify-around p-2">
     {posts.map(({ id, title, content, created_at}) => (
       <div className="max-w-sm rounded overflow-hidden shadow-lg  border-2 border-black">
@@ -44,7 +51,7 @@ const Home = () => {
       )
       )}
       
-      </div></>
+      </div>
       )
     }
     
