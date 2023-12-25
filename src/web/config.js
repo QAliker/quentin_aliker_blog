@@ -1,14 +1,20 @@
-import { object, string } from "yup"
+import { number,object, string } from "yup"
 
 const validationSchema = object({
     api: object({
         baseUrl: string().required(),
     }).noUnknown(),
+    ui: object({
+        itemsPerPage: number().max(15).required()
+    }),
 }).noUnknown()
 const data = {
     api: {
         baseUrl: process.env.NEXT_PUBLIC_API__BASE_URL,
     },
+    ui : {
+        itemsPerPage: 2,
+    }
 }
 const config = (() => {
     try {

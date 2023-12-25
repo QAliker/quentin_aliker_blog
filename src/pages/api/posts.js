@@ -1,13 +1,13 @@
 import mw from "@/api/mw"
 import { validate } from "@/api/middlewares/validate"
-import { contentValidators, titleValidators  } from "@/utils/validators"
-
+import { contentValidators, titleValidators, pageValidator } from "@/utils/validators"
+import config from "@/web/config"
 const handle = mw({
   POST: [
     validate({
       body: {
         title: titleValidators,
-        content: contentValidators
+        content: contentValidators,
       },
     }),
     async ({
@@ -22,10 +22,33 @@ const handle = mw({
       res.send("the posts has been inserted in the database", posts)
     },
   ],
-  GET: [async ({ res, models:{PostsModel} }) => {
-    const posts = await PostsModel.query()
-    res.send(posts)
-  }],
+  GET: [ validate({
+    query:{
+      page: pageValidator.optional(),
+    },
+  }),
+async ({
+  res,
+  models: { PostsModel},
+  input: {
+    query: { page },
+  },
+}) => {
+  const query = PostsModel.query()
+  const posts = await query
+  .clone()
+  .limit(config.ui.itemsPerPage)
+  .offset((page - 1) * config.ui.itemsPerPage)
+  const [{ count }] = await query.clone().count()
+    setTimeout( () => res.send ({
+      result: posts,
+      meta: {
+        count, 
+      },
+    }),
+    3000
+    )
+}],
 })
 
 export default handle

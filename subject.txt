@@ -47,4 +47,4 @@ This is exercise covers all the lessons learnt during the past weeks
 
     https://github.com/nine1000school/asi-3-24-b_api
     
-    NEXT_PUBLIC_API__BASE_URL=http://localhost:3000/api
+   
