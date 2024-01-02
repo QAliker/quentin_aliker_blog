@@ -1,4 +1,4 @@
-import Link from "@/web/components/Link"
+import Link from "@/web/components/UI/Link"
 import config from "@/web/config"
 import clsx from "clsx"
 

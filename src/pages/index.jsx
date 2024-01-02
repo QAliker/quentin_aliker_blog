@@ -1,18 +1,19 @@
 import apiClient from "@/web/services/apiClient";
-import Pagination from "@/web/components/Pagination";
+import Pagination from "@/web/components/UI/Pagination";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import Loader from "@/web/components/Loader";
+import Loader from "@/web/components/UI/Loader";
 import { useRouter } from "next/router";
+// revenir sur ce commit fix: prevent refetch on page load
 
-export const getServerSideProps = async () => {
-  const data = await apiClient("/posts").then(({data: result }) => result)
+export const getServerSideProps = async ({query: { page } }) => {
+  const data = await apiClient("/posts", { params: { page } })
 
   return {
-    props: data,
+    props: { initialData: data},
   }
 }
 
-const Home = (props) => {
+const Home = ({ initialData }) => {
   const { query } = useRouter()
   const page = Number.parseInt(query.page || "1", 10)
   const {
@@ -24,10 +25,8 @@ const Home = (props) => {
     refetch,
   } = useQuery({
     queryKey: ["posts", page],
-    queryFn: () => 
-
-    apiClient("/posts", { params: { page } }).then(({data}) => data),
-    initialData: props,
+    queryFn: () => apiClient("/posts", { params: { page } }),
+    initialData,
   })
   // mutation et requete pour le update a faire
 
@@ -80,3 +79,5 @@ const Home = (props) => {
     }
     
     export default Home
+
+    // check everything error numbers if you can do a component of something else mor cleanly check everything 

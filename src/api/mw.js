@@ -7,6 +7,7 @@ import { HTTP_ERRORS } from "@/api/constants"
 import { NotFoundError as ObjectionNotFoundError } from "objection";
 import { NotFoundError, PublicError } from "./errrors";
 import config from "@/config"
+import UserModel from "@/db/models/UserModel";
 
 const mw = (handlers) => async (req, res) => {
     const middlewares = handlers[req.method]
@@ -19,7 +20,8 @@ const mw = (handlers) => async (req, res) => {
     const ctx = {
         db,
         models:{
-            PostsModel
+            PostsModel,
+            UserModel
         },
         req,
         res,
