@@ -46,5 +46,6 @@ This is exercise covers all the lessons learnt during the past weeks
     - create link automatically in posts by text analysis
 
     https://github.com/nine1000school/asi-3-24-b_api
+    SECURITY__PASSWORD__PEPPER=AVLJ8cr4dLud6vIZeAxh5uP9Z6xxgGeH6e4+0m3Rfi0j56BVTykzlnXxACrPXYFZbVXugHMYX24koxhLnfSBbtX0/ffZq3/t2dFsKFapPL+bdzaPTwlyw/AFmVKuIwiZQigq2LIeQ4xDQMwRWXoDiXRHQ1GX00RtmxM/XCpxKlJDsNKZqFLtT7UreBSk5NMyO8XHul011raGxJI6z5B3cNsKtb3tfat5P7D9DjoJ7Fj795okalMyV342MIiPfI0gzUAcZ44+JLUL9ojk3jKRZRXIgkULL0t1LYH6F2encVNqRF+5T51YgQUu59IDvLHWwOjma9ZfiqxNKFOo711iUyj1tJgn3622qCRTRnY9PSk=
     
    
