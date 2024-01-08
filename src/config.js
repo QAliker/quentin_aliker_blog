@@ -1,4 +1,4 @@
-import { object, string, number } from "yup"
+import { object, string, number, boolean} from "yup"
 
 const validationSchema = object({
     db: object({
@@ -6,6 +6,12 @@ const validationSchema = object({
         connection: string().required(),
     }).noUnknown(),
     security: object({
+        jwt: object({
+            cookieName: string().required(),
+            secret: string().min(32).required(),
+            expiresIn: string().required(),
+            secure: boolean().required(),
+        }).noUnknown(),
         password: object({
             iterations: number().min(10000).required(),
             keylen: number().min(128).required(),
@@ -20,6 +26,12 @@ const data = {
         connection: process.env.DB__CONNECTION,
     },
     security: {
+        jwt: {
+            cookieName: "sessionToken",
+            secret: process.env.SECURITY__JWT__SECRET,
+            expiresIn: "2 hours",
+            secure: process.env.NODE_ENV === "production",
+        },
         password: {
             iterations: 100000,
             keylen: 256,
@@ -35,7 +47,6 @@ const config = (() => {
             abortEarly: false,
         })
     } catch (err) {
-        // eslint-disable-next-line no-console
         console.error(err)
         process.exit(1)
     }

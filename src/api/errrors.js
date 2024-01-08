@@ -26,3 +26,11 @@ export class UnauthorizedError extends PublicError {
         super(message)
     }
 }
+
+export class ForbiddenError extends PublicError {
+    httpCode = HTTP_ERRORS.FORBIDDEN
+    
+    constructor(message = "Forbidden") {
+        super(message)
+    }
+}

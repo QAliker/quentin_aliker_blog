@@ -2,8 +2,10 @@ import mw from "@/api/mw"
 import { validate } from "@/api/middlewares/validate"
 import { contentValidators, titleValidators, pageValidators } from "@/utils/validators"
 import config from "@/web/config"
+import auth from "@/api/middlewares/auth"
 const handle = mw({
   POST: [
+    auth,
     validate({
       body: {
         title: titleValidators,

@@ -35,7 +35,6 @@ const Home = ({ initialData }) => {
   })
   const handleClickDelete = async (event) => {
     const postId = Number.parseInt(event.target.getAttribute("data-id"), 10)
-    console.log(postId)
     await deletePost(postId)
     await refetch()
   }

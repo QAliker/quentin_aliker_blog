@@ -41,7 +41,6 @@ const SignUpPage = () => {
         }
         return (
             <>
-            <pre>{JSON.stringify(error)}</pre>
             <Formik
             validationSchema={validationSchema}
             initialValues={initialValues}
@@ -66,7 +65,7 @@ const SignUpPage = () => {
             <label htmlFor="password">Password</label>
             <Field
             name="password"
-            type="password"
+            type="text"
             className="border-2 p-2"
             placeholder="Enter your password" />
             <ErrorMessage name="password" component="p" className="text-red-500" />
