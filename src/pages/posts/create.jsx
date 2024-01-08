@@ -1,7 +1,8 @@
 import { titleValidators, contentValidators } from "@/utils/validators";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Formik, Field, ErrorMessage } from "formik";
+import Form from "@/web/components/UI/Form";
+import FormField from "@/web/components/UI/FormField";
 import * as yup from "yup"
-import Nav from "../../web/components/Nav"
 import axios from "axios";
 
 const initialValues = {
@@ -18,11 +19,10 @@ const createPosts = () => {
     const handleSubmit = async (values, { resetForm }) => {
         const { data } = await axios.post("http://localhost:3000/api/posts", values)
         console.log(values, data)
-
+        
         resetForm()
     }
     return (
-        
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -54,5 +54,5 @@ const createPosts = () => {
             {/* Component pour le Formik(formulaire voir commit showcase axios) */}
         </Formik>
         )}
-
-export default createPosts
+    
+    export default createPosts

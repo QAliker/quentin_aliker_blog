@@ -1,9 +1,11 @@
 import mw from "@/api/mw"
 import { validate } from "@/api/middlewares/validate"
-import { contentValidators, titleValidators, pageValidator } from "@/utils/validators"
+import { contentValidators, titleValidators, pageValidators } from "@/utils/validators"
 import config from "@/web/config"
+import auth from "@/api/middlewares/auth"
 const handle = mw({
   POST: [
+    auth,
     validate({
       body: {
         title: titleValidators,
@@ -24,31 +26,31 @@ const handle = mw({
   ],
   GET: [ validate({
     query:{
-      page: pageValidator.optional(),
+      page: pageValidators.optional(),
     },
   }),
-async ({
-  res,
-  models: { PostsModel},
-  input: {
-    query: { page },
-  },
-}) => {
-  const query = PostsModel.query()
-  const posts = await query
-  .clone()
-  .limit(config.ui.itemsPerPage)
-  .offset((page - 1) * config.ui.itemsPerPage)
-  const [{ count }] = await query.clone().count()
-    setTimeout( () => res.send ({
+  async ({
+    res,
+    models: { PostsModel},
+    input: {
+      query: { page },
+    },
+  }) => {
+    const query = PostsModel.query()
+    const posts = await query
+    .clone()
+    .limit(config.ui.itemsPerPage)
+    .offset((page - 1) * config.ui.itemsPerPage)
+    const [{ count }] = await query.clone().count()
+    res.send ({
       result: posts,
       meta: {
         count, 
       },
     }),
     3000
-    )
-}],
+    
+  }],
 })
 
 export default handle

@@ -2,7 +2,7 @@ import { HTTP_ERRORS } from "../../../api/constants"
 import mw from "../../../api/mw"
 import { titleValidators, contentValidators } from "@/utils/validators"
 import { validate } from "@/api/middlewares/validate"
-
+import auth from "@/api/middlewares/auth"
 const handle = mw({
     GET: [
         validate({
@@ -29,6 +29,7 @@ const handle = mw({
     ],
     PATCH: [
         async ({
+            auth,
             models: { PostsModel },
             req: {
                 body,
@@ -58,6 +59,7 @@ const handle = mw({
             },
         ],
         DELETE: [
+            auth,
             async ({
                 models: { PostsModel },
                 req: {
