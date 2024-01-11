@@ -5,12 +5,6 @@ import { validate } from "@/api/middlewares/validate"
 import auth from "@/api/middlewares/auth"
 const handle = mw({
     GET: [
-        validate({
-            body: {
-                title: titleValidators,
-                content: contentValidators
-            },
-        }),
         async ({
             models: { PostsModel },
             req: {
@@ -28,18 +22,16 @@ const handle = mw({
         }
     ],
     PATCH: [
+        auth,
         async ({
-            auth,
             models: { PostsModel },
             req: {
                 body,
-                query: 
-                { postsId },
+                query: { postsId },
             },
             res,
         }) => {
             const posts = await PostsModel.query().findById(postsId)
-            res.send(posts)
             
             if(!posts) {
                 res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
@@ -53,7 +45,6 @@ const handle = mw({
                     content: body.content,
                     updated_at: "NOW()"
                 }
-                .throwIfNotFound()
                 )
                 res.send(updatedPosts)
             },

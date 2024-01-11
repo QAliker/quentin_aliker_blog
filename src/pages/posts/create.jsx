@@ -3,8 +3,12 @@ import { Formik, Field, ErrorMessage } from "formik";
 import Form from "@/web/components/UI/Form";
 import FormField from "@/web/components/UI/FormField";
 import * as yup from "yup"
-import axios from "axios";
-
+import apiClient from "@/web/services/apiClient";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import config from "@/web/config";
+import jsonwebtoken from "jsonwebtoken"
+import { useMutation } from "@tanstack/react-query";
 const initialValues = {
     title: "",
     content: "",
@@ -16,10 +20,28 @@ const validationSchema = yup.object({
 })
 
 const createPosts = () => {
-    const handleSubmit = async (values, { resetForm }) => {
-        const { data } = await axios.post("http://localhost:3000/api/posts", values)
-        console.log(values, data)
+    const router = useRouter()
+    const [session, setSession] = useState(null)
+    useEffect(() => {
+        const jwt = localStorage.getItem(config.security.session.storageKey)
         
+        if (!jwt) {
+            router.push("/");
+            return
+        }
+        
+        const { payload } = jsonwebtoken.decode(jwt)
+        
+        setSession(payload)
+    }, [])
+    const { mutateAsync } = useMutation({
+        mutationFn: (values) => 
+            apiClient.post("/posts", values).then(({ data }) => data)
+        
+    })
+    const handleSubmit = async (values, { resetForm }) => {
+        await mutateAsync(values)
+        router.push("/")
         resetForm()
     }
     return (
@@ -48,7 +70,7 @@ const createPosts = () => {
                 <button
                     type="submit"
                     className="px-3 py-2 bg-blue-600 active:bg-blue-700 text-2xl text-white">
-                    Submit
+                    Create
                 </button>
             </Form>
             {/* Component pour le Formik(formulaire voir commit showcase axios) */}

@@ -11,21 +11,21 @@ const MenuItem = ({ children, href, ...otherProps }) => (
         const { session, signOut } = useSession()
         
         return (
-            <nav className="bg-gray-800 p-4">
+            <div className="bg-gray-800 p-4">
             <ul className="flex items-center justify-center space-x-4">
             {session ? (
             <>
             <MenuItem href="/" className="text-white">Home</MenuItem>
             <MenuItem href="/posts/create" className="text-white">Create</MenuItem>
-            <MenuItem href="/blog" className="text-white">Home</MenuItem>
-            <button onClick={signOut} className="text-white">Sign-Out</button>
-            
+            <MenuItem href="/profile" className="text-white">Profile</MenuItem>
+            <MenuItem href="/posts/myposts" className="text-white">My Posts</MenuItem>
+            <button onClick={signOut} className="text-white flex items-end justify-end">Sign-Out</button>
             </>) : (<>
                 <MenuItem href="/sign-up" className="text-white">Sign-up</MenuItem>
                 <MenuItem href="/sign-in" className="text-white">Sign-in</MenuItem>
                 </>)}
                 </ul>
-                </nav>
+            </div>
                 )
             }
             

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "npx lint eslint --ext js,jsx,cjs,mjs . && next lint"
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",

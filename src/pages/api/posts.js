@@ -18,9 +18,10 @@ const handle = mw({
         body: { title, content },
       },
       res,
+      session,
     }) => {
       const posts = await PostsModel.query()
-      .insert({ title, content, created_at: "NOW()", updated_at: "NOW()"  })
+      .insert({ user_id: session.id ,title, content, created_at: "NOW()", updated_at: "NOW()"  })
       res.send("the posts has been inserted in the database", posts)
     },
   ],
@@ -31,7 +32,7 @@ const handle = mw({
   }),
   async ({
     res,
-    models: { PostsModel},
+    models: { PostsModel },
     input: {
       query: { page },
     },
@@ -39,6 +40,7 @@ const handle = mw({
     const query = PostsModel.query()
     const posts = await query
     .clone()
+    .withGraphFetched("user")
     .limit(config.ui.itemsPerPage)
     .offset((page - 1) * config.ui.itemsPerPage)
     const [{ count }] = await query.clone().count()
@@ -48,7 +50,7 @@ const handle = mw({
         count, 
       },
     }),
-    3000
+    1000
     
   }],
 })
