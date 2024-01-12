@@ -7,8 +7,6 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import jsonwebtoken from 'jsonwebtoken'
 import config from "@/web/config"
-import Link from "next/link";
-import Update from "@/pages/posts/update"
 
 
 export const getServerSideProps = async ({query: { page } }) => {
