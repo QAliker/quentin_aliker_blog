@@ -2,6 +2,7 @@ import config from "@/web/config"
 import apiClient from "@/web/services/apiClient"
 import jsonwebtoken from "jsonwebtoken"
 import { createContext, useContext, useEffect, useState } from "react"
+import Router from "next/router"
 
 const SessionContext = createContext()
 
@@ -18,10 +19,10 @@ export const SessionProvider = (props) => {
     }
     const signOut = () => {
         localStorage.removeItem(config.security.session.storageKey)
-        
         apiClient.delete("/sessions")
         
         setSession(null)
+        Router.push("/")
     }
     
     useEffect(() => {

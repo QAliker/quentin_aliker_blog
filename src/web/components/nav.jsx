@@ -2,7 +2,7 @@ import Link from "./UI/Link"
 import { useSession } from "./SessionContext"
 const MenuItem = ({ children, href, ...otherProps }) => (
     <li {...otherProps}>
-    <Link styless href={href}>
+    <Link href={href}>
     {children}
     </Link>
     </li>

@@ -50,7 +50,6 @@ const update = ({initialData}) => {
         isFetching,
         data: 
         {result: posts,
-            meta: { count },
         },
     } = useQuery({
         queryKey: ["posts"],
