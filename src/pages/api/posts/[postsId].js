@@ -59,7 +59,6 @@ const handle = mw({
                 },
                 res,
             }) => {
-                
                 const posts = await PostsModel.query().findById(postsId).throwIfNotFound()
                 
                 if(!posts) {

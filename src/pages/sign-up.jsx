@@ -20,7 +20,7 @@ const validationSchema = object({
 const SignUpPage = () => {
     const { isSuccess, error,  mutateAsync } = useMutation({
         mutationFn: (values) =>
-        apiClient.post("/users", values).then(({ data }) => data),
+        apiClient.post("/user", values).then(({ data }) => data),
     })
     const handleSubmit = async (values) => {
         await mutateAsync(values)

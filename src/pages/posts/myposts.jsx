@@ -58,8 +58,8 @@ const myposts = ( { initialData }) => {
     const goUpdate = async (event) => {
         const postId = Number.parseInt(event.target.getAttribute("data-id"), 10)
         router.push({
-            pathname: '/posts/update',
-            query: { id: postId },
+            pathname: `/posts/update/${postId}`,
+            // query: { postNumber: postId },
         });
         };
     
@@ -83,7 +83,7 @@ const myposts = ( { initialData }) => {
             <span className="text-end text-sm font-semibold text-gray-700">By : {user.username}</span>
             <div className=" border border-gray-300 mb-2"></div> 
             <div className="flex justify-evenly">
-            <span><button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-3" onClick={goUpdate} data-id={id}>Update</button></span>
+            <span><button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-3" onClick={goUpdate} data-id={id}>Edit</button></span>
             <span><button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-3" data-id={id} onClick={handleClickDelete}>Delete</button></span>
             </div>
             {/* Convertir la date*/}

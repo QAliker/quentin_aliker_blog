@@ -32,7 +32,6 @@ const validationSchema = yup.object({
 const update = ({initialData}) => {
     const router = useRouter();
     const id = router.query.id
-    
     const [session, setSession] = useState(null)
     useEffect(() => {
         const jwt = localStorage.getItem(config.security.session.storageKey)

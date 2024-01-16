@@ -11,26 +11,27 @@ import Form from "@/web/components/UI/Form";
 import * as yup from "yup"
 import { emailValidators, usernameValidators } from "@/utils/validators";
 export const getServerSideProps = async () => {
-  const data = await apiClient("/posts")
-  
-  return {
-      props: { initialData: data},
-  }
-  // demander pq toujours faire un getserverside props pour le token
+    const data = await apiClient("/posts")
+    
+    return {
+        props: { initialData: data},
+    }
+    // demander pq toujours faire un getserverside props pour le token
 }
 
 const initialValues = {
-  username: "",
-  email: "",
+    username: "",
+    email: "",
 } 
 
 const validationSchema = yup.object({
-  username: usernameValidators.label("username"),
-  email: emailValidators.label("email"),
+    username: usernameValidators.label("username"),
+    email: emailValidators.label("email"),
 })
-const profile = ({initialData}) => {
-  const router = useRouter()
-  const [session, setSession] = useState(null)
+const updateUser = ({initialData}) => {
+    const router = useRouter()
+    const id = router.query.userId
+    const [session, setSession] = useState(null)
     useEffect(() => {
         const jwt = localStorage.getItem(config.security.session.storageKey)
         
@@ -44,31 +45,32 @@ const profile = ({initialData}) => {
         setSession(payload)
     }, [])
     const {
-      isFetching,
-      data: 
-      {result: user,
-      },
-      refetch,
-  } = useQuery({
-      queryKey: ["user"],
-      queryFn: () => apiClient("/user"),
-      initialData,
-  })
-  if(user.email && user.username){
-    initialValues.username = user.username
-    initialValues.email = user.email
-  }
-
-  const { mutateAsync } = useMutation({
-    mutationFn: (values) => 
-    apiClient.patch("/user", values).then(({ data }) => data)
-})
-const handleSubmit = async (values) => {
-    await mutateAsync(values)
-    await refetch()
-}
-  return (
-    <div className="relative">
+        isFetching,
+        data: 
+        {result: user,
+        },
+        refetch,
+    } = useQuery({
+        queryKey: ["user"],
+        queryFn: () => apiClient(`/admin/${id}`),
+        initialData,
+    })
+    if(user.email && user.username){
+        initialValues.username = user.username
+        initialValues.email = user.email
+    }
+    
+    const { mutateAsync } = useMutation({
+        mutationFn: (values) => 
+        apiClient.patch(`/admin/${id}`, values).then(({ data }) => data)
+    })
+    const handleSubmit = async (values) => {
+        await mutateAsync(values)
+        router.push("/admin/users")
+        await refetch()
+    }
+    return (
+        <div className="relative">
         {isFetching && <Loader />}
         <Formik
         initialValues={initialValues}
@@ -101,7 +103,7 @@ const handleSubmit = async (values) => {
         {/* Component pour le Formik(formulaire voir commit showcase axios) */}
         </Formik>
         </div>
-  )
-}
-
-export default profile
+        )
+    }
+    
+    export default updateUser
