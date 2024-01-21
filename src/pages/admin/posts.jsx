@@ -8,15 +8,13 @@ import { useState } from 'react'
 import jsonwebtoken from 'jsonwebtoken'
 import config from "@/web/config"
 
-
 export const getServerSideProps = async ({query: { page } }) => {
-    const data = await apiClient("/posts", { params: { page } })
-    
+    const data = await apiClient("/posts")
     return {
         props: { initialData: data},
     }
 }
-const myposts = ( { initialData }) => {
+const posts = ({initialData}) => {
     const router = useRouter()
     const [session, setSession] = useState(null)
     useEffect(() => {
@@ -42,7 +40,7 @@ const myposts = ( { initialData }) => {
         refetch,
     } = useQuery({
         queryKey: ["posts", page],
-        queryFn: () => apiClient("/posts/myposts", { params: { page } }),
+        queryFn: () => apiClient("/posts", { params: { page } }),
         initialData,
     })
     
@@ -58,12 +56,9 @@ const myposts = ( { initialData }) => {
     const goUpdate = async (event) => {
         const postId = Number.parseInt(event.target.getAttribute("data-id"), 10)
         router.push({
-            pathname: `/posts/update/${postId}`,
-            // query: { postNumber: postId },
+            pathname: `/posts/update/${postId}`
         });
         };
-    
-    
     return (
         <div className="relative">
         {isFetching && <Loader />}
@@ -98,6 +93,6 @@ const myposts = ( { initialData }) => {
             </div>
             )
             }
-        
-        export default myposts
-        
+    
+    export default posts
+    

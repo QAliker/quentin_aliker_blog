@@ -19,7 +19,7 @@ const validationSchema = yup.object({
     content: contentValidators.label("content"),
 })
 
-const createPosts = () => {
+const CreatePosts = () => {
     const router = useRouter()
     const [session, setSession] = useState(null)
     useEffect(() => {
@@ -77,4 +77,4 @@ const createPosts = () => {
         </Formik>
         )}
     
-    export default createPosts
+    export default CreatePosts
