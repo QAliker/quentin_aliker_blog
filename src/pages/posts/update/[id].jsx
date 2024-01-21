@@ -13,7 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import Loader from "@/web/components/UI/Loader";
 
 export const getServerSideProps = async () => {
-    const data = await apiClient("/posts")
+    const data = await apiClient(`/posts`)
     return {
         props: { initialData: data},
     }
@@ -48,11 +48,10 @@ const update = ({initialData}) => {
     const {
         isFetching,
         data: 
-        {result: posts,
-        },
+        {result: posts},
     } = useQuery({
         queryKey: ["posts"],
-        queryFn: () => apiClient("/posts/myposts"),
+        queryFn: () => apiClient(`/posts/myposts`),
         initialData,
     })
     for (let i = 0; i < posts.length; i++) {
@@ -61,6 +60,7 @@ const update = ({initialData}) => {
             initialValues.content = posts[i].content
         }
     }
+    // corriger n importe qui peut changer en changeant l id  dans les query params
     const { mutateAsync } = useMutation({
         mutationFn: (values) => 
         apiClient.patch(`/posts/${id}`, values).then(({ data }) => data)

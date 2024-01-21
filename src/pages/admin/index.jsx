@@ -20,13 +20,16 @@ const index = () => {
         setSession(payload)
     }, [])
     return (
-        <div>
+        <div className="flex items-center justify-center">
         {!session || session.role === 0 ? (
-            <p>Vous n'êtes pas autorisé ici.</p>
+            <p className="text-red-500">Vous n'êtes pas autorisé ici.</p>
             ) : (
-                <div>
-                    <Link href="/admin/users">Users</Link>
-                    <Link href="/admin/posts">Posts</Link>
+                <div className="text-center">
+                <h1 className="text-3xl font-bold mb-2">Bienvenue!</h1>
+                <div className="flex justify-center space-x-4">
+                <Link href="/admin/users" className="text-blue-500 hover:underline">Gérer les utilisateurs</Link>
+                <Link href="/admin/posts" className="text-blue-500 hover:underline">Gérer les publications</Link>
+                </div>
                 </div>
                 )}
                 </div>

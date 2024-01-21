@@ -3,6 +3,7 @@ import Pagination from "@/web/components/UI/Pagination";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Loader from "@/web/components/UI/Loader";
 import { useRouter } from "next/router";
+import Router from "next/router";
 // revenir sur ce commit fix: prevent refetch on page load
 
 export const getServerSideProps = async ({query: { page } }) => {
@@ -27,7 +28,13 @@ const Home = ({ initialData }) => {
     queryFn: () => apiClient("/posts", { params: { page } }),
     initialData,
   })
-
+  
+  const goToPost = (id) => {
+        Router.push({
+            pathname: `/posts/${id}`
+        });
+        };
+  
   return (
     <div className="relative">
       {isFetching && <Loader />}
@@ -46,6 +53,11 @@ const Home = ({ initialData }) => {
             <span className="text-end text-sm font-semibold text-gray-700">By : {user.username}</span>
             {/* <span><button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-3" data-id={id} onClick={handleClickDelete}>Delete</button></span> */}
             {/* Convertir la date et ajouter les auteurs*/}
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3"
+              data-id={id}
+              onClick={(e) => goToPost(id)}
+            >View</button>
           </div>
 
         </div>
