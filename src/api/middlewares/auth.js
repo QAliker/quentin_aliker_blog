@@ -17,7 +17,6 @@ const auth = async (ctx) => {
             )
             
             ctx.session = payload
-            
             await next()
         } catch (err) {
             throw new ForbiddenError()

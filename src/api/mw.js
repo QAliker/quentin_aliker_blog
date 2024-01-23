@@ -8,6 +8,7 @@ import { NotFoundError as ObjectionNotFoundError } from "objection";
 import { NotFoundError, PublicError } from "./errrors";
 import config from "@/config"
 import UserModel from "@/db/models/UserModel";
+import CommentsModel from "@/db/models/CommentsModel";
 
 const mw = (handlers) => async (req, res) => {
     const middlewares = handlers[req.method]
@@ -21,7 +22,8 @@ const mw = (handlers) => async (req, res) => {
         db,
         models:{
             PostsModel,
-            UserModel
+            UserModel,
+            CommentsModel
         },
         req,
         res,

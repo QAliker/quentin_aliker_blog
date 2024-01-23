@@ -48,7 +48,6 @@ const handle = mw({
         
         const deletedUser = await UserModel.query().deleteById(userId.usersId)
         res.send("user and his posts were deleted")
-        
     }
 ],
 PATCH: [

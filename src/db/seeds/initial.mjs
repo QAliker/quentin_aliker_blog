@@ -23,4 +23,13 @@ export const seed = async (db) => {
                 role: faker.number.int({max: 0})
             })),
             )
+        await db("comments").delete()
+        await db("comments").insert(
+            [...Array(40)].map(() => ({
+                user_id: faker.number.int({ min: 1, max: 20}),
+                post_id: faker.number.int({ min: 1, max: 30}),
+                content: faker.lorem.sentence(5),
+                created_at: "NOW()",
+            })),
+            )
         }
