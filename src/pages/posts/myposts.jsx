@@ -59,7 +59,6 @@ const myposts = ( { initialData }) => {
         const postId = Number.parseInt(event.target.getAttribute("data-id"), 10)
         router.push({
             pathname: `/posts/update/${postId}`,
-            // query: { postNumber: postId },
         });
         };
     

@@ -5,6 +5,7 @@ import Loader from "@/web/components/UI/Loader";
 import { useRouter } from "next/router";
 import Router from "next/router";
 // revenir sur ce commit fix: prevent refetch on page load
+// Lorsque on efface un post faut effacer le comm
 
 export const getServerSideProps = async ({query: { page } }) => {
   const data = await apiClient("/posts", { params: { page } })
