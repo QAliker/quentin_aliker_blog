@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HTTP_ERRORS } from "./constants"
 
 export class PublicError extends Error {

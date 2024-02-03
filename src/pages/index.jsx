@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query"
 import Loader from "@/web/components/UI/Loader"
 import { useRouter } from "next/router"
 import Card from "@/web/components/UI/Card"
-// Lorsque on efface un post faut effacer le comm faire lien entre table
 
 export const getServerSideProps = async ({query: { page } }) => {
   const data = await apiClient("/posts", { params: { page } })
@@ -55,5 +54,3 @@ const Home = ({ initialData }) => {
     }
     
     export default Home
-
-    // Check everything error numbers if you can do a component of something else mor cleanly check everything 

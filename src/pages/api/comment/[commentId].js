@@ -20,6 +20,10 @@ const handle = mw({
                 const comments = await CommentsModel.query()
                 .findById(id)
                 res.send({ result: comments })
+                
+                if(!comments) {
+                    res.status(HTTP_ERRORS.NOT_FOUND).send("Not Found")
+                }
             },
         ],
         PATCH: [
@@ -40,7 +44,7 @@ const handle = mw({
                     
                     return 
                 }
-
+                
                 const updatedComment = await CommentsModel.query().patchAndFetchById(
                     id,
                     {
@@ -60,18 +64,18 @@ const handle = mw({
                     res,
                 }) => {
                     const comment = await CommentsModel.query().findById(commentId.commentId).throwIfNotFound()
-
+                    
                     if(!comment) {
                         res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
-
                         
-return
+                        
+                        return
                     }
-
+                    
                     const deletedComment = await CommentsModel.query().deleteById(commentId.commentId)
-                    res.send("user and his posts were deleted")
+                    res.send(deletedComment)
                 }
             ]
-    })
-    
-    export default handle
+        })
+        
+        export default handle

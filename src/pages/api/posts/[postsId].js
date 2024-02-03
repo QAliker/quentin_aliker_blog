@@ -5,7 +5,7 @@ import { validate } from "@/api/middlewares/validate"
 import auth from "@/api/middlewares/auth"
 const handle = mw({
     GET: [
-        // Auth,
+        auth,
         validate({
             query:{
                 page: pageValidators.optional()
@@ -59,7 +59,7 @@ const handle = mw({
             DELETE: [
                 auth,
                 async ({
-                    models: { PostsModel },
+                    models: { PostsModel, CommentsModel },
                     req: {
                         query: 
                         { postsId },
@@ -73,9 +73,14 @@ const handle = mw({
                         
                         return
                     }
+                    
+                    await PostsModel.query().deleteById(postsId)
+                    const comments = await CommentsModel.query().where("post_id", postsId)
 
-                    const deletedPosts = await PostsModel.query().deleteById(postsId)
-                    // delete comments
+                    if (comments) {
+                        await CommentsModel.query().where("post_id", postsId).del()
+                    }
+
                     res.send("Posts has been deleted")
                 }
             ]

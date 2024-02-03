@@ -1,6 +1,5 @@
 import config from "@/web/config"
-import axios from "axios"
-import { AxiosError } from "axios"
+import { AxiosError, axios } from "axios"
 
 export class ApiClientError extends Error {
     data = null

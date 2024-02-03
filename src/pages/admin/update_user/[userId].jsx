@@ -14,7 +14,6 @@ export const getServerSideProps = async () => {
     return {
         props: { initialData: data},
     }
-    // Demander pq toujours faire un getserverside props pour le token
 }
 const initialValues = {
     username: "",

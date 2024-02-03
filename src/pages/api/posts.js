@@ -44,13 +44,13 @@ const handle = mw({
     .limit(config.ui.itemsPerPage)
     .offset((page - 1) * config.ui.itemsPerPage)
     const [{ count }] = await query.clone().count()
+
     res.send ({
       result: posts,
       meta: {
         count, 
       },
-    }),
-    1000
+    })
   }],
 })
 
