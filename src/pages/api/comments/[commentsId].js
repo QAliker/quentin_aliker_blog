@@ -19,7 +19,6 @@ const handle = mw({
                 const comments = await CommentsModel.query()
                 .where("post_id", commentsId).withGraphFetched("user")
                 res.send({ result: comments })
-                
             },
         ],
         POST: [
@@ -27,8 +26,9 @@ const handle = mw({
             async ({
                 models: { CommentsModel },
                 req: {
-                    body: { content},
+                    body: { content },
                     query: { commentsId }
+                    // Passer le title en query params et faire une requete dessus
                 },
                 res,
                 session,

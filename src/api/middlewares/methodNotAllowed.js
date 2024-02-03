@@ -1,4 +1,4 @@
-import { HTTP_ERRORS } from "../constants";
+import { HTTP_ERRORS } from "../constants"
 
 const methodNotAllowed = (req, res) => {
     res

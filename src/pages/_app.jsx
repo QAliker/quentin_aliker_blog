@@ -1,7 +1,7 @@
-import '@/styles/globals.css'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import "@/styles/globals.css"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { SessionProvider } from "@/web/components/SessionContext"
-import Nav from '@/web/components/Nav'
+import Nav from "@/web/components/Nav"
 const client = new QueryClient() 
 const App = ({ Component, pageProps }) => (
   <QueryClientProvider client={client}>

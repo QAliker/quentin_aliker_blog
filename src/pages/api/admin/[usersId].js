@@ -1,7 +1,7 @@
-import mw from "@/api/mw";
-import { validate } from "@/api/middlewares/validate";
-import authAdmin from "@/api/middlewares/authAdmin";
-import { pageValidators } from "@/utils/validators";
+import mw from "@/api/mw"
+import { validate } from "@/api/middlewares/validate"
+import authAdmin from "@/api/middlewares/authAdmin"
+import { pageValidators } from "@/utils/validators"
 const handle = mw({
     GET: [
         authAdmin,
@@ -19,10 +19,14 @@ const handle = mw({
             const id = userId.usersId
             const user = await UserModel.query()
             .findOne({ id })
+
             if (!user) {
                 res.send({ result: false })
-                return
+
+                
+return
             }
+
             res.send({ result: user })
         },
     ],
@@ -36,12 +40,15 @@ const handle = mw({
         res,
     }) => {
         const user = await UserModel.query().findById(userId.usersId).throwIfNotFound()
+
         if(!user) {
             res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
             
             return
         }
+
         const posts = await PostsModel.query().findById(userId.usersId)
+
         if(posts) {
             const deletedPosts = await PostsModel.query().delete().where("user_id", userId.usersId)
         }
@@ -68,6 +75,7 @@ PATCH: [
             
             return 
         }
+
         const updatedUser = await UserModel.query().patchAndFetchById(
             id,
             {

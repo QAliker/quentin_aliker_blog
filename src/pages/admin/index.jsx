@@ -4,24 +4,28 @@ import config from "@/web/config"
 import jsonwebtoken from "jsonwebtoken"
 import Link from "@/web/components/UI/Link"
 
-const index = () => {
+const IndexAdmin = () => {
     const router = useRouter()
     const [session, setSession] = useState(null)
     useEffect(() => {
         const jwt = localStorage.getItem(config.security.session.storageKey)
         const { payload } = jsonwebtoken.decode(jwt)
         
-        if (!jwt || payload.role === 0) {
+        if (!jwt || payload.role !== 1) {
             router.push("/")
-            return
+
+            
+return
         }
         
         
         setSession(payload)
-    }, [])
-    return (
+    }, [router])
+
+    
+return (
         <div className="flex items-center justify-center">
-        {!session || session.role === 0 ? (
+        {!session || session.role !== 1 ? (
             <p className="text-red-500">Vous n'êtes pas autorisé ici.</p>
             ) : (
                 <div className="text-center">
@@ -36,5 +40,5 @@ const index = () => {
                 )
             }
             
-            export default index
+            export default IndexAdmin
             

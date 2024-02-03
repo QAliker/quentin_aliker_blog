@@ -1,39 +1,22 @@
-import { titleValidators, contentValidators } from "@/utils/validators";
-import { Formik, Field, ErrorMessage } from "formik";
-import Form from "@/web/components/UI/Form";
-import FormField from "@/web/components/UI/FormField";
+import { titleValidators, contentValidators } from "@/utils/validators"
+import { Formik, Field, ErrorMessage } from "formik"
+import Form from "@/web/components/UI/Form"
+import { useAuth } from "@/web/components/useAuth"
 import * as yup from "yup"
-import apiClient from "@/web/services/apiClient";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import config from "@/web/config";
-import jsonwebtoken from "jsonwebtoken"
-import { useMutation } from "@tanstack/react-query";
+import apiClient from "@/web/services/apiClient"
+import { useRouter } from "next/router"
+import { useMutation } from "@tanstack/react-query"
 const initialValues = {
     title: "",
     content: "",
 }
-
 const validationSchema = yup.object({
     title: titleValidators.label("title"),
     content: contentValidators.label("content"),
 })
-
 const CreatePosts = () => {
+    useAuth()
     const router = useRouter()
-    const [session, setSession] = useState(null)
-    useEffect(() => {
-        const jwt = localStorage.getItem(config.security.session.storageKey)
-        
-        if (!jwt) {
-            router.push("/");
-            return
-        }
-        
-        const { payload } = jsonwebtoken.decode(jwt)
-        
-        setSession(payload)
-    }, [])
     const { mutateAsync } = useMutation({
         mutationFn: (values) => 
             apiClient.post("/posts", values).then(({ data }) => data)
@@ -44,7 +27,9 @@ const CreatePosts = () => {
         router.push("/")
         resetForm()
     }
-    return (
+
+    
+return (
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -73,7 +58,6 @@ const CreatePosts = () => {
                     Create
                 </button>
             </Form>
-            {/* Component pour le Formik(formulaire voir commit showcase axios) */}
         </Formik>
         )}
     
