@@ -1,14 +1,14 @@
-import methodNotAllowed from "./middlewares/methodNotAllowed";
-import log from "./middlewares/log";
-import knex from "knex";
-import BaseModel from "@/db/models/BaseModel";
-import PostsModel from "@/db/models/PostsModel";
+import methodNotAllowed from "./middlewares/methodNotAllowed"
+import log from "./middlewares/log"
+import knex from "knex"
+import BaseModel from "@/db/models/BaseModel"
+import PostsModel from "@/db/models/PostsModel"
 import { HTTP_ERRORS } from "@/api/constants"
-import { NotFoundError as ObjectionNotFoundError } from "objection";
-import { NotFoundError, PublicError } from "./errrors";
+import { NotFoundError as ObjectionNotFoundError } from "objection"
+import { NotFoundError, PublicError } from "./errrors"
 import config from "@/config"
-import UserModel from "@/db/models/UserModel";
-import CommentsModel from "@/db/models/CommentsModel";
+import UserModel from "@/db/models/UserModel"
+import CommentsModel from "@/db/models/CommentsModel"
 
 const mw = (handlers) => async (req, res) => {
     const middlewares = handlers[req.method]

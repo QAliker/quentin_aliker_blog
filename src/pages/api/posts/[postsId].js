@@ -5,7 +5,7 @@ import { validate } from "@/api/middlewares/validate"
 import auth from "@/api/middlewares/auth"
 const handle = mw({
     GET: [
-        // auth,
+        // Auth,
         validate({
             query:{
                 page: pageValidators.optional()
@@ -23,6 +23,7 @@ const handle = mw({
                 if(!posts) {
                     res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
                 }
+
                 res.send({result: posts})
             }
         ],
@@ -43,6 +44,7 @@ const handle = mw({
                     
                     return 
                 }
+
                 const updatedPosts = await PostsModel.query().patchAndFetchById(
                     postsId,
                     {
@@ -71,7 +73,9 @@ const handle = mw({
                         
                         return
                     }
+
                     const deletedPosts = await PostsModel.query().deleteById(postsId)
+                    // delete comments
                     res.send("Posts has been deleted")
                 }
             ]

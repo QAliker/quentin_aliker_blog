@@ -1,5 +1,5 @@
-import config from "@/config";
-import BaseModel from "./BaseModel";
+import config from "@/config"
+import BaseModel from "./BaseModel"
 import { pbkdf2, randomBytes } from "node:crypto"
 import { promisify } from "node:util"
 

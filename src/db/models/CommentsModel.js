@@ -14,7 +14,7 @@ class CommentsModel extends BaseModel {
                     to: "users.id",
                 },
             },
-            // post: {
+            // Post: {
             //     relation: BaseModel.HasManyRelation,
             //     modelClass: PostsModel,
             //     join: {
