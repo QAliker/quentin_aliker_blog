@@ -3,7 +3,7 @@ import Pagination from "@/web/components/UI/Pagination"
 import { useQuery } from "@tanstack/react-query"
 import Loader from "@/web/components/UI/Loader"
 import { useRouter } from "next/router"
-import Card from "@/web/components/UI/Card"
+import Card from "@/web/components/cards/Card"
 
 export const getServerSideProps = async ({query: { page } }) => {
   const data = await apiClient("/posts", { params: { page } })

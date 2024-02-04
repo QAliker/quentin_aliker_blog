@@ -1,5 +1,7 @@
+/* eslint-disable no-duplicate-imports */
 import config from "@/web/config"
-import { AxiosError, axios } from "axios"
+import axios from "axios"
+import { AxiosError } from "axios"
 
 export class ApiClientError extends Error {
     data = null

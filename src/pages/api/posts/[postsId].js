@@ -5,7 +5,6 @@ import { validate } from "@/api/middlewares/validate"
 import auth from "@/api/middlewares/auth"
 const handle = mw({
     GET: [
-        auth,
         validate({
             query:{
                 page: pageValidators.optional()

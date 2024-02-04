@@ -1,7 +1,7 @@
 import apiClient from "@/web/services/apiClient"
 import { useQuery } from "@tanstack/react-query"
 import Loader from "@/web/components/UI/Loader"
-import AdminUserTable from "@/web/components/UI/AdminUserTable"
+import AdminUserTable from "@/web/components/Admin/AdminUserTable"
 export const getServerSideProps = async () => {
     const data = await apiClient("/posts")
     

@@ -21,7 +21,7 @@ This is exercise covers all the lessons learnt during the past weeks
             - list users
             - delete users
             - edit users
-            - disable users (a faire)
+            - disable users
             - create a post
             - edit a post
     - CRUD comments
@@ -31,7 +31,7 @@ This is exercise covers all the lessons learnt during the past weeks
     - basic stats on dashboard
         - my comments count
         - my posts count
-        - visits per posts (a faire)
+        - visits per posts (a faire) + HTTP ERROR + CAMEL CASE
 
 ### Advanced blogging
     - upload avatars for profiles

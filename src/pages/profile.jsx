@@ -5,7 +5,7 @@ import { Formik, Field, ErrorMessage } from "formik"
 import Form from "@/web/components/UI/Form"
 import * as yup from "yup"
 import { emailValidators, usernameValidators } from "@/utils/validators"
-import ProfileStats from "@/web/components/UI/ProfileStats"
+import ProfileStats from "@/web/components/profile/ProfileStats"
 import { useAuth } from "@/web/components/useAuth"
 export const getServerSideProps = async () => {
   const data = await apiClient("/posts")
