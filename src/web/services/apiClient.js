@@ -1,3 +1,4 @@
+/* eslint-disable no-duplicate-imports */
 import config from "@/web/config"
 import axios from "axios"
 import { AxiosError } from "axios"

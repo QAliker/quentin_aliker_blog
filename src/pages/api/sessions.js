@@ -1,7 +1,7 @@
 import { UnauthorizedError } from "@/api/errrors"
 import { validate } from "@/api/middlewares/validate"
 import mw from "@/api/mw"
-import { emailValidators, passwordValidators, usernameValidators } from "@/utils/validators"
+import { passwordValidators, usernameValidators } from "@/utils/validators"
 import auth from "@/api/middlewares/auth"
 import config from "@/config"
 import jsonwebtoken from "jsonwebtoken"
@@ -61,7 +61,7 @@ const handle = mw({
             
             DELETE: [
                 auth,
-                async ({ res }) => {
+                ({ res }) => {
                     const cookie = new NextResponse().cookies.set({
                         name: config.security.jwt.cookieName,
                         value: "",

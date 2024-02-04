@@ -1,6 +1,7 @@
 import mw from "@/api/mw"
 import { validate } from "@/api/middlewares/validate"
 import { emailValidators, pageValidators, passwordValidators, usernameValidators } from "@/utils/validators"
+import { HTTP_ERRORS } from "@/api/constants"
 import auth from "@/api/middlewares/auth"
 const handle = mw({
     GET: [
@@ -37,7 +38,7 @@ const handle = mw({
             }),
             async ({
                 input: {
-                    body: { email, password, username, role },
+                    body: { email, password, username },
                 },
                 models: { UserModel },
                 res,

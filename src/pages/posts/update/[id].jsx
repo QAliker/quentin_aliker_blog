@@ -16,7 +16,6 @@ return {
         props: { initialData: data},
     }
 }
-// Demander a avetis pour opti le code 
 const initialValues = {
     title: "",
     content: "",

@@ -5,8 +5,8 @@ import { useEffect, useState } from "react"
 import Loader from "@/web/components/UI/Loader"
 import jsonwebtoken from "jsonwebtoken"
 import config from "@/web/config"
-import Post from "@/web/components/UI/Posts"
-import Comments from "@/web/components/UI/Comments"
+import Post from "@/web/components/Posts/Posts"
+import Comments from "@/web/components/comments/Comments"
 
 const InitialValues = {
     content: ""

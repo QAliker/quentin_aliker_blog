@@ -1,5 +1,4 @@
 import mw from "../../../api/mw"
-import { HTTP_ERRORS } from "../../../api/constants"
 import { pageValidators } from "@/utils/validators"
 import { validate } from "@/api/middlewares/validate"
 import auth from "@/api/middlewares/auth"
@@ -28,13 +27,12 @@ const handle = mw({
                 req: {
                     body: { content },
                     query: { commentsId }
-                    // Passer le title en query params et faire une requete dessus
                 },
                 res,
                 session,
             }) => {
                 const comment = await CommentsModel.query()
-                .insert({ user_id: session.id , post_id: commentsId, content , created_at: "NOW()"/*, updated_at: "NOW()"*/  })
+                .insert({ user_id: session.id , post_id: commentsId, content , created_at: "NOW()"  })
                 res.send("the comment has been inserted in the database", comment)
             },
         ],

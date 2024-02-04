@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import Loader from "@/web/components/UI/Loader"
 import { useRouter } from "next/router"
 import { useAuth } from "@/web/components/useAuth"
-import EditableCard from "@/web/components/UI/EditableCard"
+import EditableCard from "@/web/components/cards/EditableCard"
 
 export const getServerSideProps = async ({query: { page } }) => {
     const data = await apiClient("/posts", { params: { page } })

@@ -1,5 +1,6 @@
 import mw from "@/api/mw"
 import authAdmin from "@/api/middlewares/authAdmin"
+import { HTTP_ERRORS } from "../../../api/constants"
 
 const handle = mw({
 PATCH: [

@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker"
 
 export const seed = async (db) => {
     await db("posts").delete()
-    const posts = await db("posts")
+    await db("posts")
     .insert(
         [... new Array(30)].map(() => ({
             title: faker.lorem.sentence(),

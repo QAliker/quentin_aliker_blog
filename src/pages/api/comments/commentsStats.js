@@ -1,5 +1,4 @@
 import mw from "../../../api/mw"
-import { HTTP_ERRORS } from "../../../api/constants"
 import { pageValidators } from "@/utils/validators"
 import { validate } from "@/api/middlewares/validate"
 import auth from "@/api/middlewares/auth"
