@@ -1,13 +1,13 @@
 import apiClient from "@/web/services/apiClient"
 import Pagination from "@/web/components/UI/Pagination"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useMutation } from "@tanstack/react-query"
 import Loader from "@/web/components/UI/Loader"
 import { useRouter } from "next/router"
 import Card from "@/web/components/cards/Card"
 
 export const getServerSideProps = async ({query: { page } }) => {
   const data = await apiClient("/posts", { params: { page } })
-
+  
   return {
     props: { initialData: data},
   }
@@ -25,25 +25,31 @@ const Home = ({ initialData }) => {
     queryFn: () => apiClient("/posts", { params: { page } }),
     initialData,
   })
+  const { mutateAsync } = useMutation({
+    mutationFn: (postId) => 
+    apiClient.patch(`posts/views/${postId}`)
+  })
   const goToPost = (id) => {
-        router.push({
-            pathname: `/posts/${id}`
-        })
-        }
+    router.push({
+      pathname: `/posts/${id}`
+    })
+    mutateAsync(id)
+  }
   
   return (
     <div className="relative">
-      {isFetching && <Loader />}
+    {isFetching && <Loader />}
     <div className="flex justify-around p-2 flex-wrap">
-    {posts.map(({ id, title, content, created_at, user}) => (
+    {posts.map(({ id, title, content, created_at, user, views}) => (
       <Card
       key={id}
       title={title}
       content={content}
       createdAt={created_at}
       user={user}
+      views = {views}
       onClick={() => goToPost(id)}
-    />
+      />
       )
       )}
       

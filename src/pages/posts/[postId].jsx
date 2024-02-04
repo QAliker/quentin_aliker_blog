@@ -37,8 +37,6 @@ const PostsView = ({initialData}) => {
     const queryId = router.query.postId
     const { isFetching, data: {result: onePost }, } = useQuery({ queryKey: ["onePost"], queryFn: () => apiClient(`/posts/${queryId}`), initialData, })
     const { data:  {result: comments}, refetch, } = useQuery({ queryKey: ["comments"], queryFn: () => apiClient(`/comments/${queryId}`), initialData, })
-    const post = Object.entries(onePost)
-    const [[{ username }]] = post.slice(-1)
     const {mutateAsync} = useMutation({ mutationFn: (values) => apiClient.post(`/comments/${queryId}`, values).then(({data}) => data), })
     const handleComments = async () => { 
         const oneComments = document.querySelector("#comment")
@@ -53,7 +51,7 @@ const PostsView = ({initialData}) => {
     return (
         <div className="relative">
         {isFetching && <Loader />}
-        <Post onePost={onePost} username={username} />
+        <Post onePost={onePost} username={onePost.user.username} />
         <Comments comments={comments} userIsAuthor={userIsAuthor} handleComments={handleComments}
         />
         </div>

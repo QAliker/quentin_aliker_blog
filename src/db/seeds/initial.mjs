@@ -9,6 +9,7 @@ export const seed = async (db) => {
             title: faker.lorem.sentence(),
             content: faker.lorem.paragraphs(10),
             user_id: faker.number.int({ min: 1, max: 20}),
+            views: faker.number.int(0),
             created_at: "NOW()",
             updated_at: "NOW()"
         }))
