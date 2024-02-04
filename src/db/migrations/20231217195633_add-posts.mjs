@@ -4,6 +4,7 @@ export const up = async (db) => {
         table.integer("user_id").notNullable()
         table.string("title").notNullable()
         table.text("content").notNullable()
+        table.integer("views").notNullable()
         table.timestamp("created_at", { useTz: true }).notNullable()
         table.timestamp("updated_at", { useTz: true }).notNullable()
     })
