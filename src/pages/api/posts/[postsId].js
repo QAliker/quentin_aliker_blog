@@ -49,7 +49,7 @@ const handle = mw({
                     {
                         title: body.title,
                         content: body.content,
-                        updated_at: "NOW()"
+                        updatedAt: "NOW()"
                     }
                     )
                     res.send(updatedPosts)
@@ -74,10 +74,10 @@ const handle = mw({
                     }
                     
                     await PostsModel.query().deleteById(postsId)
-                    const comments = await CommentsModel.query().where("post_id", postsId)
+                    const comments = await CommentsModel.query().where("postId", postsId)
 
                     if (comments) {
-                        await CommentsModel.query().where("post_id", postsId).del()
+                        await CommentsModel.query().where("postId", postsId).del()
                     }
 
                     res.send("Posts has been deleted")

@@ -21,14 +21,14 @@ const Comments = ({ comments, userIsAuthor,  handleComments }) => {
         <div className="bg-white p-4 rounded-md shadow-md">
         <h2 className="text-xl font-bold mb-2">Comments</h2>
         <div className="space-y-4">
-        {comments.map(({ id, user, content, created_at }) => (
+        {comments.map(({ id, user, content, createdAt }) => (
             <div className="comments" key={id}>
             <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
             <div>
             <p className="font-bold text-blue-500">{user.username}</p>
             <p className="text-gray-600">{content}</p>
-            <p className="text-xs text-gray-600">{created_at.slice(0, 10)}</p>
+            <p className="text-xs text-gray-600">{createdAt.slice(0, 10)}</p>
             </div>
             </div>
             <div className="flex items-center space-x-2 mt-2">

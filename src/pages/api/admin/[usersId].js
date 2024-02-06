@@ -50,7 +50,7 @@ const handle = mw({
                 const posts = await PostsModel.query().findById(userId.usersId)
                 
                 if(posts) {
-                    await PostsModel.query().delete().where("user_id", userId.usersId)
+                    await PostsModel.query().delete().where("userId", userId.usersId)
                 }
                 
                 await UserModel.query().deleteById(userId.usersId)

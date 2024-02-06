@@ -36,12 +36,12 @@ const Myposts = ({ initialData }) => {
         <div className="relative">
         {isFetching && <Loader />}
         <div className="flex justify-around p-2 flex-wrap">
-        {posts.map(({ id, title, content, created_at, user}) => (
+        {posts.map(({ id, title, content, createdAt, user}) => (
             <EditableCard
             key={id}
             title={title}
             content={content}
-            created_at={created_at}
+            createdAt={createdAt}
             user={user}
             goUpdate={() => goUpdate(id)}
             handleClickDelete={() => handleClickDelete(id)}/>

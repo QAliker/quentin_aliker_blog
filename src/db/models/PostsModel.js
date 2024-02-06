@@ -10,7 +10,7 @@ class PostsModel extends BaseModel {
                 relation: BaseModel.BelongsToOneRelation,
                 modelClass: UserModel,
                 join: {
-                    from: "posts.user_id",
+                    from: "posts.userId",
                     to: "users.id",
                 },
             },
@@ -19,7 +19,7 @@ class PostsModel extends BaseModel {
                 modelClass: CommentsModel,
                 join: {
                     from: "posts.id",
-                    to: "comments.post_id",
+                    to: "comments.postId",
                 },
             }
         }

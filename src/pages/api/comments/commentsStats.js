@@ -15,7 +15,7 @@ const handle = mw({
                 models: { CommentsModel },
             }) => {
                 const count = await CommentsModel.query()
-                .count("* as totalComments").where("user_id", "=", session.id)
+                .count("* as totalComments").where("userId", "=", session.id)
                 res.send({result: count})
             },
         ],

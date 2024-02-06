@@ -21,7 +21,7 @@ const handle = mw({
       session,
     }) => {
       const posts = await PostsModel.query()
-      .insert({ user_id: session.id ,title, content, views: 0, created_at: "NOW()", updated_at: "NOW()"  })
+      .insert({ userId: session.id ,title, content, views: 0, createdAt: "NOW()", updatedAt: "NOW()"  })
       res.send("the posts has been inserted in the database", posts)
     },
   ],

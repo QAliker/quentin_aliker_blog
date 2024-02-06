@@ -3,7 +3,7 @@ const Post = ({ onePost, username }) => (
     <h1 className="text-3xl font-bold mb-4">{onePost.title}</h1>
     <p className="text-gray-700 mb-4">{onePost.content}</p>
     <div className="flex justify-between items-center">
-    <p className="text-gray-500">{onePost.created_at}</p>
+    <p className="text-gray-500">{onePost.createdAt}</p>
     <p className="text-blue-500 font-bold">{username}</p>
     </div>
     </div>

@@ -21,7 +21,7 @@ const handle = mw({
         }) => {
             const query = PostsModel.query()
             const posts = await query
-            .clone().where("user_id", "=", session.id)
+            .clone().where("userId", "=", session.id)
             .withGraphFetched("user")
             .limit(config.ui.itemsPerPage)
             .offset((page - 1) * config.ui.itemsPerPage)
