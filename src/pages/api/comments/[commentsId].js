@@ -16,7 +16,7 @@ const handle = mw({
                 models: { CommentsModel },
             }) => {
                 const comments = await CommentsModel.query()
-                .where("post_id", commentsId).withGraphFetched("user")
+                .where("postId", commentsId).withGraphFetched("user")
                 res.send({ result: comments })
             },
         ],
@@ -32,7 +32,7 @@ const handle = mw({
                 session,
             }) => {
                 const comment = await CommentsModel.query()
-                .insert({ user_id: session.id , post_id: commentsId, content , created_at: "NOW()"  })
+                .insert({ userId: session.id , postId: commentsId, content , createdAt: "NOW()"  })
                 res.send("the comment has been inserted in the database", comment)
             },
         ],

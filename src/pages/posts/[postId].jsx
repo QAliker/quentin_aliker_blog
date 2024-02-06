@@ -51,7 +51,7 @@ const PostsView = ({initialData}) => {
     return (
         <div className="relative">
         {isFetching && <Loader />}
-        <Post onePost={onePost} username={onePost.user.username} />
+        <Post onePost={onePost} username="somebody" />
         <Comments comments={comments} userIsAuthor={userIsAuthor} handleComments={handleComments}
         />
         </div>

@@ -40,12 +40,12 @@ const Home = ({ initialData }) => {
     <div className="relative">
     {isFetching && <Loader />}
     <div className="flex justify-around p-2 flex-wrap">
-    {posts.map(({ id, title, content, created_at, user, views}) => (
+    {posts.map(({ id, title, content, createdAt, user, views}) => (
       <Card
       key={id}
       title={title}
       content={content}
-      createdAt={created_at}
+      createdAt={createdAt}
       user={user}
       views = {views}
       onClick={() => goToPost(id)}

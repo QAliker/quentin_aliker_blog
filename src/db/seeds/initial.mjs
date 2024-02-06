@@ -8,10 +8,10 @@ export const seed = async (db) => {
         [... new Array(30)].map(() => ({
             title: faker.lorem.sentence(),
             content: faker.lorem.paragraphs(10),
-            user_id: faker.number.int({ min: 1, max: 20}),
+            userId: faker.number.int({ min: 1, max: 20}),
             views: faker.number.int(0),
-            created_at: "NOW()",
-            updated_at: "NOW()"
+            createdAt: "NOW()",
+            updatedAt: "NOW()"
         }))
         )
         await db("users").delete()
@@ -27,10 +27,10 @@ export const seed = async (db) => {
         await db("comments").delete()
         await db("comments").insert(
             [...Array(40)].map(() => ({
-                user_id: faker.number.int({ min: 1, max: 20}),
-                post_id: faker.number.int({ min: 1, max: 30}),
+                userId: faker.number.int({ min: 1, max: 20}),
+                postId: faker.number.int({ min: 1, max: 30}),
                 content: faker.lorem.sentence(5),
-                created_at: "NOW()",
+                createdAt: "NOW()",
             })),
             )
         }

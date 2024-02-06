@@ -1,11 +1,11 @@
-const EditableCard = ({ title, content, created_at, user, goUpdate, handleClickDelete }) => (
+const EditableCard = ({ title, content, createdAt, user, goUpdate, handleClickDelete }) => (
         <div className="max-w-sm rounded overflow-hidden shadow-lg border-2 border-black m-2">
         <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{title}</div>
         <p className="text-gray-700 text-base">{content.substring(0, 200)}</p>
         <div className="pt-4">
         <span className="text-sm font-semibold text-gray-700 mr-3">
-        Created: {created_at.slice(0, 10)}
+        Created: {createdAt.slice(0, 10)}
         </span>
         <span className="text-end text-sm font-semibold text-gray-700">By: {user.username}</span>
         <div className="border border-gray-300 mb-2"></div>

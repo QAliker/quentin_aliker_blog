@@ -9,7 +9,7 @@ class CommentsModel extends BaseModel {
                 relation: BaseModel.HasOneRelation,
                 modelClass: UserModel,
                 join: {
-                    from: "comments.user_id",
+                    from: "comments.userId",
                     to: "users.id",
                 },
             },

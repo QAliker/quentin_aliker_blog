@@ -39,8 +39,8 @@ return (
         <div className="relative">
         {isFetching && <Loader />}
         <div className="flex justify-around p-2 flex-wrap">
-        {posts.map(({ id, title, content, created_at, user}) => (
-            <EditableCard key={id} title={title} content={content} created_at={created_at} user={user} goUpdate={() => goUpdate(id)}
+        {posts.map(({ id, title, content, createdAt, user}) => (
+            <EditableCard key={id} title={title} content={content} createdAt={createdAt} user={user} goUpdate={() => goUpdate(title)}
             handleClickDelete={() => handleClickDelete(id)}/>
             )
             )}
