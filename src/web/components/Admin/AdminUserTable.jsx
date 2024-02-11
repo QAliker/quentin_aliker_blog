@@ -14,10 +14,9 @@ const AdminUserTable = ({users}) => {
         const userId = Number.parseInt(event.target.getAttribute("data-id"), 10)
         await deleteUser(userId)
     }
-    const goUpdate = (event) => {
-        const userId = Number.parseInt(event.target.getAttribute("data-id"), 10)
+    const goUpdate = (username) => {
         router.push({
-            pathname: `/admin/update_user/${userId}`,
+            pathname: `/admin/update_user/${username}`,
         })
     }
     const handleClickDisable = async (event) => {
@@ -39,7 +38,7 @@ const AdminUserTable = ({users}) => {
                 <td className="p-3 text-center">{email}</td>
                 <td>
                 <span>
-                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-3" onClick={goUpdate} data-id={id}>Edit</button>
+                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-3" onClick={() => goUpdate(username)} data-id={id}>Edit</button>
                 <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-3" data-id={id} onClick={handleClickDelete}>Delete</button>
                 <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-3" data-id={id} onClick={handleClickDisable}>Disable</button>
                 </span>

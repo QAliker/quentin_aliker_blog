@@ -13,13 +13,11 @@ const handle = mw({
             async ({
                 res,
                 req: {
-                    query: userId ,
+                    query: { username },
                 },
                 models: { UserModel },
             }) => {
-                const id = userId.usersId
-                const user = await UserModel.query()
-                .findOne({ id })
+                const user = await UserModel.query().select("email", "username").where("username", username)
                 
                 if (!user) {
                     res.status(HTTP_ERRORS.NOT_FOUND).send({ result: false })
@@ -33,13 +31,14 @@ const handle = mw({
         DELETE: [
             authAdmin,
             async ({
-                models: { UserModel, PostsModel },
+                models: { UserModel, PostsModel, CommentsModel },
                 req: {
-                    query: userId ,
+                    query: {username},
                 },
                 res,
             }) => {
-                const user = await UserModel.query().findById(userId.usersId).throwIfNotFound()
+                const id = username
+                const user = await UserModel.query().findById(id).throwIfNotFound()
                 
                 if(!user) {
                     res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
@@ -47,14 +46,21 @@ const handle = mw({
                     return
                 }
                 
-                const posts = await PostsModel.query().findById(userId.usersId)
+                const posts = await PostsModel.query().findById(id)
                 
                 if(posts) {
-                    await PostsModel.query().delete().where("userId", userId.usersId)
+                    await PostsModel.query().delete().where("userId", id)
                 }
                 
-                await UserModel.query().deleteById(userId.usersId)
-                res.send("user and his posts were deleted")
+                const comments = await CommentsModel.query().findById(id)
+
+                if(comments) {
+                    await CommentsModel.query().delete().where("userId", id)
+                }
+
+                await UserModel.query().deleteById(id)
+                
+                res.send("user posts and comments were deleted")
             }
         ],
         PATCH: [
@@ -62,13 +68,12 @@ const handle = mw({
             async ({
                 models: { UserModel },
                 req: {
-                    query: userId ,
+                    query: { username } ,
                     body,
                 },
                 res,
             }) => {
-                const id = userId.usersId
-                const user = await UserModel.query().findById(id)
+                const user = await UserModel.query().where("username",username)
                 
                 if(!user) {
                     res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
@@ -77,7 +82,7 @@ const handle = mw({
                 }
                 
                 const updatedUser = await UserModel.query().patchAndFetchById(
-                    id,
+                    user[0].id,
                     {
                         username: body.username,
                         email: body.email,
