@@ -11,28 +11,30 @@ const handle = mw({
             async ({
                 res,
                 req: {
-                    query: { commentsId } ,
+                    query: { titleComments } ,
                 },
-                models: { CommentsModel },
+                models: { CommentsModel, PostsModel },
             }) => {
+                const posts = await PostsModel.query().select("id").where("title", titleComments)
                 const comments = await CommentsModel.query()
-                .where("postId", commentsId).withGraphFetched("user")
+                .where("postId", posts[0].id).withGraphFetched("user")
                 res.send({ result: comments })
             },
         ],
         POST: [
             auth,
             async ({
-                models: { CommentsModel },
+                models: { CommentsModel, PostsModel },
                 req: {
                     body: { content },
-                    query: { commentsId }
+                    query: { titleComments }
                 },
                 res,
                 session,
             }) => {
+                const postsId = await PostsModel.query().select("id").where("title", titleComments)
                 const comment = await CommentsModel.query()
-                .insert({ userId: session.id , postId: commentsId, content , createdAt: "NOW()"  })
+                .insert({ userId: session.id , postId: postsId[0].id, content , createdAt: "NOW()"  })
                 res.send("the comment has been inserted in the database", comment)
             },
         ],

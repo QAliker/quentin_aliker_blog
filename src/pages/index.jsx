@@ -48,7 +48,7 @@ const Home = ({ initialData }) => {
       createdAt={createdAt}
       user={user}
       views = {views}
-      onClick={() => goToPost(id)}
+      onClick={() => goToPost(title)}
       />
       )
       )}

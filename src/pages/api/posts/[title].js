@@ -5,6 +5,7 @@ import { validate } from "@/api/middlewares/validate"
 import auth from "@/api/middlewares/auth"
 const handle = mw({
     GET: [
+        auth,
         validate({
             query:{
                 page: pageValidators.optional()
@@ -13,11 +14,12 @@ const handle = mw({
                 models: { PostsModel },
                 req: {
                     query: 
-                    { postsId },
+                    { title },
                 },
                 res,
             }) => {
-                const posts = await PostsModel.query().findById(postsId).withGraphFetched("user")
+                const selectedPosts = await PostsModel.query().select("id").where("title", title)
+                const posts = await PostsModel.query().findById(selectedPosts[0].id).withGraphFetched("user")
                 
                 if(!posts) {
                     res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
@@ -32,20 +34,20 @@ const handle = mw({
                 models: { PostsModel },
                 req: {
                     body,
-                    query: { postsId },
+                    query: { title },
                 },
                 res,
             }) => {
-                const posts = await PostsModel.query().findById(postsId)
+                const postId = await PostsModel.query().select("id").where("title", title)
                 
-                if(!posts) {
+                if(!postId) {
                     res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
                     
                     return 
                 }
 
                 const updatedPosts = await PostsModel.query().patchAndFetchById(
-                    postsId,
+                    postId[0].id,
                     {
                         title: body.title,
                         content: body.content,
@@ -61,10 +63,11 @@ const handle = mw({
                     models: { PostsModel, CommentsModel },
                     req: {
                         query: 
-                        { postsId },
+                        { title },
                     },
                     res,
                 }) => {
+                    const postsId = title
                     const posts = await PostsModel.query().findById(postsId).throwIfNotFound()
                     
                     if(!posts) {

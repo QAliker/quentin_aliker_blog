@@ -25,10 +25,9 @@ const Myposts = ({ initialData }) => {
         await deletePost(postId)
         await refetch()
     }
-    const goUpdate = (id) => {
-        const postId = Number.parseInt(id, 10)
+    const goUpdate = (title) => {
         router.push({
-            pathname: `/posts/update/${postId}`,
+            pathname: `/posts/update/${title}`,
         })
         }
 
@@ -43,7 +42,7 @@ const Myposts = ({ initialData }) => {
             content={content}
             createdAt={createdAt}
             user={user}
-            goUpdate={() => goUpdate(id)}
+            goUpdate={() => goUpdate(title)}
             handleClickDelete={() => handleClickDelete(id)}/>
             )
             )}

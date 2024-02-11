@@ -34,10 +34,10 @@ const PostsView = ({initialData}) => {
         const { payload } = jsonwebtoken.decode(jwt)
         setSession(payload)
     }, [router])
-    const queryId = router.query.postId
-    const { isFetching, data: {result: onePost }, } = useQuery({ queryKey: ["onePost"], queryFn: () => apiClient(`/posts/${queryId}`), initialData, })
-    const { data:  {result: comments}, refetch, } = useQuery({ queryKey: ["comments"], queryFn: () => apiClient(`/comments/${queryId}`), initialData, })
-    const {mutateAsync} = useMutation({ mutationFn: (values) => apiClient.post(`/comments/${queryId}`, values).then(({data}) => data), })
+    const {titlePost} = router.query
+    const { isFetching, data: {result: onePost }, } = useQuery({ queryKey: ["onePost"], queryFn: () => apiClient(`/posts/${titlePost}`), initialData, })
+    const { data:  {result: comments}, refetch, } = useQuery({ queryKey: ["comments"], queryFn: () => apiClient(`/comments/${titlePost}`), initialData, })
+    const {mutateAsync} = useMutation({ mutationFn: (values) => apiClient.post(`/comments/${titlePost}`, values).then(({data}) => data), })
     const handleComments = async () => { 
         const oneComments = document.querySelector("#comment")
         const comment = oneComments.value

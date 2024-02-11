@@ -7,21 +7,21 @@ const handle = mw({
             async ({
                 models: { PostsModel },
                 req: {
-                    query: { postsId },
+                    query: { titlePost },
                 },
                 res,
             }) => {
-                const posts = await PostsModel.query().findById(postsId)
-                const {views} = posts
-
-                if(!posts) {
+                const post = await PostsModel.query().select("views", "id").where("title", titlePost)
+                
+                if(!post) {
                     res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
                     
                     return 
                 }
-
+                
+                const [ { views } ] = post
                 const updatedViews = await PostsModel.query().patchAndFetchById(
-                    postsId,
+                    post[0].id,
                     {
                         views: views + 1,
                     }

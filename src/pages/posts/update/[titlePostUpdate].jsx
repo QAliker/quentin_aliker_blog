@@ -26,18 +26,18 @@ const validationSchema = yup.object({
 })
 const UpdatePost = ({initialData}) => {
     const router = useRouter()
-    const {id} = router.query
+    const {titlePostUpdate} = router.query
     useAuth()
     const { isFetching, data: {result: posts}, } = useQuery({ queryKey: ["posts"], queryFn: () => apiClient(`/posts/myposts`), initialData, })
     for (let i = 0; i < posts.length; i+=1) {
-        if(posts[i].id === parseInt(id, 10)) {
+        if(posts[i].title === titlePostUpdate) {
             initialValues.title = posts[i].title
             initialValues.content = posts[i].content
         }
     }
     const { mutateAsync } = useMutation({
         mutationFn: (values) => 
-        apiClient.patch(`/posts/${id}`, values).then(({ data }) => data)
+        apiClient.patch(`/posts/${titlePostUpdate}`, values).then(({ data }) => data)
         
     })
     const handleSubmit = async (values, { resetForm }) => {
