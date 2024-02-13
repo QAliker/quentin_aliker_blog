@@ -1,5 +1,6 @@
 import mw from "@/api/mw"
 import authAdmin from "@/api/middlewares/authAdmin"
+import { HTTP_ERRORS, HTTP_SUCCESS } from "@/api/constants"
 const handle = mw({
     GET: [
         authAdmin,
@@ -10,13 +11,13 @@ const handle = mw({
             const user = await UserModel.query()
             
             if (!user) {
-                res.send({ result: false })
+                res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found" })
                 
                 
                 return
             }
             
-            res.send({ result: user })
+            res.status(HTTP_SUCCESS.OK).send({ result: user })
         }
     ],
 })

@@ -4,6 +4,7 @@ export const HTTP_ERRORS = {
     FORBIDDEN: 403,
     NOT_FOUND: 404,
     METHOD_NOT_ALLOWED: 405,
+    CONFLICT: 409,
     INTERNAL_SERVER_ERROR: 500, 
 }
 export const HTTP_SUCCESS = {

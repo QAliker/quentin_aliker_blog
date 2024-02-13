@@ -1,4 +1,4 @@
-import { HTTP_ERRORS } from "../../../api/constants"
+import { HTTP_ERRORS, HTTP_SUCCESS } from "../../../api/constants"
 import mw from "../../../api/mw"
 import { pageValidators } from "@/utils/validators"
 import { validate } from "@/api/middlewares/validate"
@@ -25,7 +25,7 @@ const handle = mw({
                     res.status(HTTP_ERRORS.NOT_FOUND).send({ error: "Not Found"})
                 }
 
-                res.send({result: posts})
+                res.status(HTTP_SUCCESS.OK).send({result: posts})
             }
         ],
         PATCH: [
@@ -54,7 +54,7 @@ const handle = mw({
                         updatedAt: "NOW()"
                     }
                     )
-                    res.send(updatedPosts)
+                    res.status(HTTP_SUCCESS.OK).send(updatedPosts)
                 },
             ],
             DELETE: [
@@ -83,7 +83,7 @@ const handle = mw({
                         await CommentsModel.query().where("postId", postsId).del()
                     }
 
-                    res.send("Posts has been deleted")
+                    res.status(HTTP_SUCCESS.OK).send("Posts has been deleted")
                 }
             ]
         })

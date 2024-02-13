@@ -1,7 +1,7 @@
 import mw from "@/api/mw"
 import { validate } from "@/api/middlewares/validate"
 import { emailValidators, pageValidators, passwordValidators, usernameValidators } from "@/utils/validators"
-import { HTTP_ERRORS } from "@/api/constants"
+import { HTTP_ERRORS, HTTP_SUCCESS } from "@/api/constants"
 import auth from "@/api/middlewares/auth"
 const handle = mw({
     GET: [
@@ -20,12 +20,12 @@ const handle = mw({
                 .findOne({ id })
                 
                 if (!user) {
-                    res.send({ result: false })
+                    res.status(HTTP_ERRORS.NOT_FOUND).send({ result: false })
                     
                     return
                 }
                 
-                res.send({ result: user })
+                res.status(HTTP_SUCCESS.OK).send({ result: user })
             },
         ],
         POST: [
@@ -46,7 +46,7 @@ const handle = mw({
                 const user = await UserModel.query().findOne({ email })
                 
                 if (user) {
-                    res.send({ result: true })
+                    res.status(HTTP_ERRORS.CONFLICT).send({ result: "User already exists" })
                     
                     return
                 }
@@ -62,7 +62,7 @@ const handle = mw({
                     role: 0
                 })
                 
-                res.send({ result: true })
+                res.status(HTTP_SUCCESS.OK).send({ result: "User Created" })
             },
         ],
         PATCH: [
@@ -91,7 +91,7 @@ const handle = mw({
                         email: body.email,
                     }
                     )
-                    res.send(updatedUser)
+                    res.status(HTTP_SUCCESS.OK).send(updatedUser)
                 },
             ],
         })

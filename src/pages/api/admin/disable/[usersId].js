@@ -1,6 +1,6 @@
 import mw from "@/api/mw"
 import authAdmin from "@/api/middlewares/authAdmin"
-import { HTTP_ERRORS } from "@/api/constants"
+import { HTTP_ERRORS, HTTP_SUCCESS } from "@/api/constants"
 
 const handle = mw({
 PATCH: [
@@ -27,7 +27,7 @@ PATCH: [
                 role: 404,
             }
             )
-            res.send("user has been diasable", updatedUser)
+            res.status(HTTP_SUCCESS.OK).send("user has been diasable", updatedUser)
         },
     ],
 })

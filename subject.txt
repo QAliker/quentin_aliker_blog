@@ -45,7 +45,7 @@ This is exercise covers all the lessons learnt during the past weeks
     - upload images for posts + WYSIWYG editor
     - create link automatically in posts by text analysis
 
-    add status Code, add references to migrations
+    add references to migrations
     fix at the end the post username,
 
 

@@ -1,4 +1,4 @@
-import { HTTP_ERRORS } from "@/api/constants"
+import { HTTP_ERRORS, HTTP_SUCCESS } from "@/api/constants"
 import mw from "@/api/mw"
 import auth from "@/api/middlewares/auth"
 const handle = mw({
@@ -26,7 +26,7 @@ const handle = mw({
                         views: views + 1,
                     }
                     )
-                    res.send(updatedViews)
+                    res.status(HTTP_SUCCESS.OK).send(updatedViews)
                 },
             ],
         })

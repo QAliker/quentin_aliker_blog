@@ -2,7 +2,7 @@ import mw from "@/api/mw"
 import { validate } from "@/api/middlewares/validate"
 import authAdmin from "@/api/middlewares/authAdmin"
 import { pageValidators } from "@/utils/validators"
-import { HTTP_ERRORS } from "@/api/constants"
+import { HTTP_ERRORS, HTTP_SUCCESS } from "@/api/constants"
 const handle = mw({
     GET: [
         authAdmin,
@@ -25,7 +25,7 @@ const handle = mw({
                     return
                 }
                 
-                res.send({ result: user })
+                res.status(HTTP_SUCCESS.OK).send({ result: user })
             },
         ],
         DELETE: [
@@ -60,7 +60,7 @@ const handle = mw({
 
                 await UserModel.query().deleteById(id)
                 
-                res.send("user posts and comments were deleted")
+                res.status(HTTP_SUCCESS.OK).send("user posts and comments were deleted")
             }
         ],
         PATCH: [
@@ -88,7 +88,7 @@ const handle = mw({
                         email: body.email,
                     }
                     )
-                    res.send(updatedUser)
+                    res.status(HTTP_SUCCESS.OK).send(updatedUser)
                 },
             ],
         })
