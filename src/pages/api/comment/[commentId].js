@@ -1,5 +1,5 @@
 import mw from "../../../api/mw"
-import { HTTP_ERRORS } from "../../../api/constants"
+import { HTTP_ERRORS, HTTP_SUCCESS } from "../../../api/constants"
 import { pageValidators } from "@/utils/validators"
 import { validate } from "@/api/middlewares/validate"
 import auth from "@/api/middlewares/auth"
@@ -19,11 +19,12 @@ const handle = mw({
                 const id = commentId
                 const comments = await CommentsModel.query()
                 .findById(id)
-                res.send({ result: comments })
-                
+
                 if(!comments) {
                     res.status(HTTP_ERRORS.NOT_FOUND).send("Not Found")
                 }
+
+                res.status(HTTP_SUCCESS.OK).send({ result: comments })
             },
         ],
         PATCH: [
@@ -51,7 +52,7 @@ const handle = mw({
                         content: body.content
                     }
                     )
-                    res.send(updatedComment)
+                    res.status(HTTP_SUCCESS.OK).send(updatedComment)
                 },
             ],
             DELETE: [
@@ -73,7 +74,7 @@ const handle = mw({
                     }
                     
                     const deletedComment = await CommentsModel.query().deleteById(commentId.commentId)
-                    res.send(deletedComment)
+                    res.status(HTTP_SUCCESS.OK).send(deletedComment)
                 }
             ]
         })

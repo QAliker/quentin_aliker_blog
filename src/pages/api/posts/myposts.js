@@ -3,6 +3,7 @@ import { validate } from "@/api/middlewares/validate"
 import { pageValidators } from "@/utils/validators"
 import config from "@/web/config"
 import auth from "@/api/middlewares/auth"
+import { HTTP_SUCCESS } from "@/api/constants"
 const handle = mw({
     GET: [ 
         auth,
@@ -26,7 +27,7 @@ const handle = mw({
             .limit(config.ui.itemsPerPage)
             .offset((page - 1) * config.ui.itemsPerPage)
             const [{ count }] = await query.clone().count()
-            res.send ({result: posts, meta: { count },})
+            res.status(HTTP_SUCCESS.OK).send ({result: posts, meta: { count },})
         }],
     })
     

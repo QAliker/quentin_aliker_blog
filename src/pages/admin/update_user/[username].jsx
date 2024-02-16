@@ -25,13 +25,16 @@ const validationSchema = yup.object({
 })
 const UpdateUser = ({initialData}) => {
     const router = useRouter()
-    const id = router.query.userId
+    const id = router.query.username
     useAuthAdmin()
-    const { isFetching, data:  {result: user,}, refetch, } = useQuery({ queryKey: ["user"], queryFn: () => apiClient(`/admin/${id}`), initialData, })
+    const { isFetching, data:  {result: user}, refetch, } = useQuery({ queryKey: ["user"], queryFn: () => apiClient(`/admin/${id}`), initialData, })
+    
 
-    if(user.email && user.username) {
-        initialValues.username = user.username
-        initialValues.email = user.email
+    if(user.length === 1) {
+        const [{username}] = user
+        const [{email}] = user
+        initialValues.username = username
+        initialValues.email = email
     }
     
     const { mutateAsync } = useMutation({
