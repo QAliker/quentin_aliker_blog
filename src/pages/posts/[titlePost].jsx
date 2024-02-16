@@ -22,6 +22,7 @@ export const getServerSideProps = async () => {
 const PostsView = ({initialData}) => {
     const [session, setSession] = useState({user: 0, role: 0})
     const router = useRouter()
+    let username = null
     useEffect(() => {
         const jwt = localStorage.getItem(config.security.session.storageKey)
         
@@ -48,10 +49,15 @@ const PostsView = ({initialData}) => {
     }
     const userIsAuthor = (user) => session.id === user.id
 
+    if (onePost.user) {
+        const { username: userUsername } = onePost.user
+        username = userUsername 
+    }
+
     return (
         <div className="relative">
         {isFetching && <Loader />}
-        <Post onePost={onePost} username="somebody" />
+        <Post onePost={onePost} username={username}/>
         <Comments comments={comments} userIsAuthor={userIsAuthor} handleComments={handleComments}
         />
         </div>
